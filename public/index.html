@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" data-ng-app="todoApp">
+<head>
+  <meta charset="UTF-8">
+  <title>TODO App</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap-theme.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/angular.js"></script>
+  <script src="js/main.js"></script>
+</head>
+<body ng-controller="ToDoCtrl">
+<div class="page-header">
+  <h1>{{todo.user}}'s To Do List
+  <span class="label label-default" ng-class="warningLevel()" ng-hide="incompleteCount() == 0">{{incompleteCount()}}</span>
+  </h1>
+</div>
+<div class="panel">
+  <div class="input-group">
+    <input class="form-control" ng-model="actionText" />
+    <span class="input-group-btn">
+      <button class="btn btn-default" ng-click="addNewItem(actionText)">Lisää</button>
+    </span>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Kuvaus</th>
+        <th>Tehty</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in todo.items | checkedItems:showComplete | orderBy: 'action'">
+        <td>{{item.action}}</td>
+        <td><input type="checkbox" ng-model="item.done"></td>
+        <td>{{item.done}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="checkbox-inline">
+    <label><input type="checkbox" ng-model="showComplete" />Näytä valmiit</label>
+  </div>
+
+</div>
+</body>
+</html>
